@@ -1,4 +1,13 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Address book app
+
+This is a fictional address book app, where you can search for users addresses and
+personal information. The app displays a list of users for the end user to browse and
+get personal information for a selected user, where you can also select via a settings page
+which nationalities you're interested in.
+
+## Run the app
+1. Execute ```npm install``` in terminal to download all required dependencies
+2. Run ```npm run start``` to trigger the build and starting the server. Await for your browser to open on [http://localhost:3000](http://localhost:3000)
 
 ## Available Scripts
 
@@ -27,6 +36,10 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npm run lint`
+
+Executes static code analysis on the source code
+
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
@@ -37,32 +50,14 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Dependencies
+- React (Core Framework)
+- React-Redux (for state management going beyond React Hooks)
+- React-Scripts (having the following dependencies among others:)
+  - Babel
+  - Webpack
+  - Jest
+  - ESLint
+- Material-UI (UI Framework)
+- ESLint (for static code analysis and common code style among development team)
+- Jest (Testing Framework for React apps)
