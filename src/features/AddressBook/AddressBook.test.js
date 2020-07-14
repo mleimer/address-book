@@ -16,7 +16,8 @@ describe('<AddressBook />', () => {
 
         render(
             <Provider store={store}>
-                <AddressBook/>
+                <AddressBook isScrolledToBottom onRender={() => {
+                }}/>
             </Provider>
         );
 
