@@ -32,6 +32,9 @@
         "linkComponents": []
     },
     "rules": {
+        "comma-dangle": [
+            2
+        ],
         "quotes": [
             2,
             "single"
