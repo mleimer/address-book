@@ -22,7 +22,7 @@ function NavBar() {
                 </Tabs>
             </AppBar>
         </div>
-    )
+    );
 }
 
 NavBar.propTypes = {};

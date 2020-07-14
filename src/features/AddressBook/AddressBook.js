@@ -6,7 +6,7 @@ const useStyles = makeStyles(() => ({
     container: {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))'
-    },
+    }
 }));
 
 function AddressBook() {
@@ -26,7 +26,7 @@ function AddressBook() {
             <Grid item>9</Grid>
             <Grid item>10</Grid>
         </Grid>
-    )
+    );
 }
 
 AddressBook.propTypes = {};
