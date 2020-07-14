@@ -31,5 +31,7 @@
         ],
         "linkComponents": []
     },
-    "rules": { }
+    "rules": {
+        "quotes": [2, "single"] 
+    }
 }

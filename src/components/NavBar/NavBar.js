@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import {Link} from "react-router-dom";
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import {Link} from 'react-router-dom';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -14,7 +14,7 @@ function NavBar() {
     };
 
     return (
-        <div data-testid={`nav-bar`}>
+        <div data-testid={'nav-bar'}>
             <AppBar position="static">
                 <Tabs value={value} onChange={handleChange} centered>
                     <Tab label='Address book' component={Link} icon={<ContactMailIcon/>} to="/"/>
