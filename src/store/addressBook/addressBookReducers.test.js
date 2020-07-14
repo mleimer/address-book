@@ -1,15 +1,16 @@
 import {LOAD_USERS, LOAD_USERS_FAILURE, LOAD_USERS_SUCCESS, SHOW_USERS} from './addressBookActions';
 import addressBookReducers from './addressBookReducers';
+import {APPLY_SEARCH} from '../navBar/navBarActions';
 
 describe('addressBookReducers', () => {
-    it('should return the initial state', () => {
+    test('should return the initial state', () => {
         expect(addressBookReducers(undefined, {})).toEqual(
             {}
         );
     });
 
     describe('LOAD_USERS', () => {
-        it('should set isFetching to true', () => {
+        test('should set isFetching to true', () => {
             expect(
                 addressBookReducers({}, {
                     type: LOAD_USERS
@@ -23,7 +24,7 @@ describe('addressBookReducers', () => {
     });
 
     describe('LOAD_USERS_SUCCESS', () => {
-        it('should set users, update allUsersLoaded and set isFetching to false if there are currently no loadedUsers', () => {
+        test('should set users, update allUsersLoaded and set isFetching to false if there are currently no loadedUsers', () => {
             const loadedUsers = buildNUsers(2);
             expect(
                 addressBookReducers({}, {
@@ -40,7 +41,7 @@ describe('addressBookReducers', () => {
             );
         });
 
-        it('should add additional users to existing loadedUsers', () => {
+        test('should add additional users to existing loadedUsers', () => {
             const loadedUsers = buildNUsers(2);
             expect(
                 addressBookReducers({loadedUsers}, {
@@ -50,7 +51,7 @@ describe('addressBookReducers', () => {
             ).toEqual([...loadedUsers, {id: 3}, {id: 4}]);
         });
 
-        it('should leave loadedUsers as false as long as 1000 entries are not loaded', () => {
+        test('should leave loadedUsers as false as long as 1000 entries are not loaded', () => {
             const loadedUsers = buildNUsers(998);
 
             expect(
@@ -61,7 +62,7 @@ describe('addressBookReducers', () => {
             ).toBe(false);
         });
 
-        it('should update loadedUsers to true when 1000 entries are loaded', () => {
+        test('should update loadedUsers to true when 1000 entries are loaded', () => {
             const loadedUsers = buildNUsers(999);
 
             expect(
@@ -75,7 +76,7 @@ describe('addressBookReducers', () => {
     });
 
     describe('LOAD_USERS_SUCCESS', () => {
-        it('should set isError to true and isFetching to false', () => {
+        test('should set isError to true and isFetching to false', () => {
             expect(
                 addressBookReducers({isFetching: true}, {
                     type: LOAD_USERS_FAILURE
@@ -87,7 +88,7 @@ describe('addressBookReducers', () => {
     });
 
     describe('SHOW_USERS', () => {
-        it('should show all loaded users', () => {
+        test('should show all loaded users', () => {
             const loadedUsers = buildNUsers(500);
 
             expect(
@@ -98,12 +99,69 @@ describe('addressBookReducers', () => {
                 {visibleUsers: loadedUsers, loadedUsers: loadedUsers}
             );
         });
+
+        test('should reapply case insensitive substring filter on visibleUsers', () => {
+            const loadedUsers = buildNUsers(202);
+
+            expect(
+                addressBookReducers({loadedUsers, filter: 'rST20'}, {
+                    type: SHOW_USERS
+                }).visibleUsers
+            ).toEqual([
+                {id: 20, name: {first: 'first20', last: 'last20'}},
+                {id: 200, name: {first: 'first200', last: 'last200'}},
+                {id: 201, name: {first: 'first201', last: 'last201'}}
+            ]);
+        });
+    });
+
+    describe('APPLY_SEARCH', () => {
+        test('should apply case insensitive substring search on loaded users to compute visible users', () => {
+            const loadedUsers = buildNUsers(101);
+            const searchValue = 'ASt10';
+
+            expect(
+                addressBookReducers({loadedUsers, filter: ''}, {
+                    type: APPLY_SEARCH, value: searchValue
+                }).visibleUsers
+            ).toEqual([
+                {id: 10, name: {first: 'first10', last: 'last10'}},
+                {id: 100, name: {first: 'first100', last: 'last100'}}
+            ]);
+        });
+
+        test('should update filter value', () => {
+            const searchValue = 'ASt10';
+
+            expect(
+                addressBookReducers({filter: 'other'}, {
+                    type: APPLY_SEARCH, value: searchValue
+                }).filter
+            ).toEqual(searchValue);
+        });
+
+        test('should show all loaded users when filter is empty', () => {
+            const loadedUsers = buildNUsers(101);
+            const searchValue = '';
+
+            expect(
+                addressBookReducers({loadedUsers, filter: ''}, {
+                    type: APPLY_SEARCH, value: searchValue
+                })
+            ).toEqual(
+                {
+                    filter: searchValue,
+                    visibleUsers: loadedUsers,
+                    loadedUsers: loadedUsers
+                }
+            );
+        });
     });
 
 });
 
 function buildNUsers(size) {
     return [...Array(size).keys()].map(index => {
-        return {id: index};
+        return {id: index, name: {first: `first${index}`, last: `last${index}`}};
     });
 }

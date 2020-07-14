@@ -44,8 +44,11 @@ export function showUsers() {
     };
 }
 
-function loadUsersUnlessFetchingAlready(dispatch, state) {
+function loadUsersUnlessFilterAppliedOrFetchingAlready(dispatch, state) {
     if (state().addressBook?.isFetching) {
+        return;
+    }
+    if (state().addressBook?.filter) {
         return;
     }
     let allLoadedUsersCount = state().addressBook?.loadedUsers?.length || 0;
@@ -62,7 +65,7 @@ function loadUsersUnlessFetchingAlready(dispatch, state) {
 
 export function loadInitialUsers() {
     return async (dispatch, state) => {
-        return loadUsersUnlessFetchingAlready(dispatch, state)
+        return loadUsersUnlessFilterAppliedOrFetchingAlready(dispatch, state)
             .then(() => dispatch(showUsers()))
             .then(() => dispatch(loadNextUsers()));
     };
@@ -70,7 +73,7 @@ export function loadInitialUsers() {
 
 export function loadNextUsers() {
     return async (dispatch, state) => {
-        return loadUsersUnlessFetchingAlready(dispatch, state);
+        return loadUsersUnlessFilterAppliedOrFetchingAlready(dispatch, state);
     };
 }
 

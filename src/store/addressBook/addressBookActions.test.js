@@ -19,7 +19,7 @@ describe('address book actions', () => {
 
     describe('loadInitialUsers', () => {
 
-        it('should dispatch LOAD_USERS upon loading first users', () => {
+        test('should dispatch LOAD_USERS upon loading first users', () => {
             const expectedActions = [
                 {type: LOAD_USERS}
             ];
@@ -31,7 +31,7 @@ describe('address book actions', () => {
             });
         });
 
-        it('should load first users and dispatch LOAD_USERS_SUCCESS upon success', () => {
+        test('should load first users and dispatch LOAD_USERS_SUCCESS upon success', () => {
             const expectedUsers = [{id: 1}, {id: 2}];
 
             fetchMock.mock('https://randomuser.me/api/?page=1&results=50&seed=addressbook', {
@@ -51,7 +51,7 @@ describe('address book actions', () => {
             });
         });
 
-        it('should load first users and dispatch SHOW_USERS upon success', () => {
+        test('should load first users and dispatch SHOW_USERS upon success', () => {
             const expectedUsers = [{id: 1}, {id: 2}];
 
             fetchMock.mock('https://randomuser.me/api/?page=1&results=50&seed=addressbook', {
@@ -72,7 +72,7 @@ describe('address book actions', () => {
             });
         });
 
-        it('should premature dispatch LOAD_USERS after initial bunch', () => {
+        test('should premature dispatch LOAD_USERS after initial bunch', () => {
             const expectedActions = [
                 null, // ignored
                 null, // ignored
@@ -93,7 +93,7 @@ describe('address book actions', () => {
             });
         });
 
-        it('should dispatch LOAD_USERS_SUCCESS after premature user load', () => {
+        test('should dispatch LOAD_USERS_SUCCESS after premature user load', () => {
             const expectedUsers = [{id: 1}, {id: 2}];
 
             const expectedActions = [
@@ -120,7 +120,7 @@ describe('address book actions', () => {
 
     describe('loadNextUsers', () => {
 
-        it('should do nothing when users are already being fetched', () => {
+        test('should do nothing when users are already being fetched', () => {
             const expectedActions = [];
             const store = mockStore({addressBook: {isFetching: true}});
 
@@ -129,7 +129,7 @@ describe('address book actions', () => {
             });
         });
 
-        it('should prevent dispatching further actions when all users are loaded already', () => {
+        test('should prevent dispatching further actions when all users are loaded already', () => {
             const expectedActions = [];
             const store = mockStore({addressBook: {allUsersLoaded: true}});
 
@@ -138,7 +138,7 @@ describe('address book actions', () => {
             });
         });
 
-        it('should dispatch LOAD_USER and LOAD_USERS_SUCCESS when fetching users is successfully executed', () => {
+        test('should dispatch LOAD_USER and LOAD_USERS_SUCCESS when fetching users is successfully executed', () => {
             const expectedUsers = [{id: 1}, {id: 2}];
 
             fetchMock.getOnce('https://randomuser.me/api/?page=1&results=50&seed=addressbook', {
@@ -157,7 +157,7 @@ describe('address book actions', () => {
             });
         });
 
-        it('should dispatch LOAD_USERS_FAILURE when fetching is failing', () => {
+        test('should dispatch LOAD_USERS_FAILURE when fetching is failing', () => {
             fetchMock.getOnce('https://randomuser.me/api/?page=1&results=50&seed=addressbook', () => {
                 throw new Error('network error');
             });
