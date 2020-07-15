@@ -4,10 +4,11 @@ import {makeStyles} from '@material-ui/core/styles';
 import {useDispatch, useSelector} from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
-import {loadInitialUsers, loadNextUsers, showUsers} from '../../store/addressBook/addressBookActions';
+import {applyUserFilter, loadInitialUsers, loadNextUsers} from '../../store/addressBook/addressBookActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import WarningIcon from '@material-ui/icons/Warning';
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -20,9 +21,13 @@ const useStyles = makeStyles(() => ({
     item: {
         overflow: 'hidden'
     },
+    icon: {
+        margin: '0 0.5rem'
+    },
     centeredContent: {
         display: 'flex',
         justifyContent: 'center',
+        verticalAlign: 'middle',
         marginTop: '12px',
         padding: '12px'
     }
@@ -32,7 +37,9 @@ function AddressBook({isScrolledToBottom, onRender}) {
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const users = useSelector(state => state.addressBook.visibleUsers);
+    const search = useSelector(state => state.navBar.search);
+    const loadedUsers = useSelector(state => state.addressBook.loadedUsers);
+    const visibleUsers = useSelector(state => state.addressBook.visibleUsers);
     const allUsersLoaded = useSelector(state => state.addressBook.allUsersLoaded);
     const isFetching = useSelector(state => state.addressBook.isFetching);
     const [showAllUsersLoadedMessage, setShowAllUsersLoadedMessage] = useState(false);
@@ -42,12 +49,18 @@ function AddressBook({isScrolledToBottom, onRender}) {
     });
 
     useEffect(() => {
-        dispatch(loadInitialUsers());
-    }, [dispatch]);
+        if (!loadedUsers || loadedUsers.length === 0) {
+            dispatch(loadInitialUsers());
+        }
+    }, [dispatch, loadedUsers]);
+
+    useEffect(() => {
+        dispatch(applyUserFilter());
+    }, [search, dispatch]);
 
     useEffect(() => {
         if (!isFetching && isScrolledToBottom) {
-            dispatch(showUsers());
+            dispatch(applyUserFilter());
             if (allUsersLoaded) {
                 setShowAllUsersLoadedMessage(true);
             } else {
@@ -60,7 +73,7 @@ function AddressBook({isScrolledToBottom, onRender}) {
         <Container className={classes.container}>
             <Grid container className={classes.grid} data-testid="address-book" spacing={3}>
                 {
-                    (users || []).map(user =>
+                    (visibleUsers || []).map(user =>
                         <Grid item key={user.login.uuid}>
                             <Paper className={classes.item} elevation={3}>
                                 <pre>{JSON.stringify(user, null, 2)}</pre>
@@ -76,9 +89,16 @@ function AddressBook({isScrolledToBottom, onRender}) {
                 </Container>
             }
             {
+                !showAllUsersLoadedMessage && search &&
+                <Container className={classes.centeredContent}>
+                    <WarningIcon color="primary" className={classes.icon}/>
+                    <Typography component="span">user catalog loading on hold while search filter is set</Typography>
+                </Container>
+            }
+            {
                 showAllUsersLoadedMessage &&
                 <Container className={classes.centeredContent}>
-                    <Typography component="body1">end of users catalog</Typography>
+                    <Typography component="span">end of users catalog</Typography>
                 </Container>
             }
         </Container>

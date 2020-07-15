@@ -10,8 +10,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import Toolbar from '@material-ui/core/Toolbar';
 import {makeStyles} from '@material-ui/core/styles';
 import {fade} from '@material-ui/core';
-import {useDispatch} from 'react-redux';
-import {applySearch} from '../../store/navBar/navBarActions';
+import {useDispatch, useSelector} from 'react-redux';
+import {setSearch} from '../../store/navBar/navBarActions';
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -64,15 +64,15 @@ function NavBar() {
 
     const dispatch = useDispatch();
     const [selectedTabIndex, setSelectedTabIndex] = useState(0);
-    const [searchFieldValue, setSearchFieldValue] = useState('');
+
+    const searchFieldValue = useSelector(state => state.navBar.search);
 
     const handleTabChange = (event, newValue) => {
         setSelectedTabIndex(newValue);
     };
 
     const handleSearchValueChange = (event) => {
-        setSearchFieldValue(event.target.value);
-        dispatch(applySearch(event.target.value));
+        dispatch(setSearch(event.target.value));
     };
 
     return (

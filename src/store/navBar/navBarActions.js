@@ -1,10 +1,10 @@
 import 'cross-fetch/polyfill';
 
-export const APPLY_SEARCH = 'APPLY_SEARCH';
+export const SET_SEARCH = 'SET_SEARCH';
 
-export function applySearch(value) {
+export function setSearch(value) {
     return {
-        type: APPLY_SEARCH,
+        type: SET_SEARCH,
         value
     };
 }

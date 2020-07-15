@@ -13,7 +13,11 @@ const mockStore = configureMockStore(middlewares);
 describe('<NavBar />', () => {
     test('it should mount within Router component', () => {
 
-        const store = mockStore({addressBook: {users: []}});
+        const store = mockStore({
+            navBar: {
+                search: ''
+            }
+        });
 
         render(
             <Provider store={store}>

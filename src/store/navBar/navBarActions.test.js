@@ -1,22 +1,18 @@
-import fetchMock from 'fetch-mock';
-import {APPLY_SEARCH, applySearch} from './navBarActions';
+import {SET_SEARCH, setSearch} from './navBarActions';
 
 describe('nav bar actions', () => {
-    afterEach(() => {
-        fetchMock.restore();
-    });
 
-    describe('applySearch', () => {
-
-        test('should dispatch APPLY_SEARCH with search value', () => {
+    describe('setSearch', () => {
+        test('should dispatch SET_SEARCH with search value', () => {
             const searchValue = 'mySearchValue';
+
             const expectedAction = {
-                type: APPLY_SEARCH,
+                type: SET_SEARCH,
                 value: searchValue
             };
-            expect(applySearch(searchValue)).toEqual(expectedAction);
-        });
 
+            expect(setSearch(searchValue)).toEqual(expectedAction);
+        });
     });
 
 });

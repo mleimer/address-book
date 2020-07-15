@@ -1,15 +1,9 @@
-import {LOAD_USERS, LOAD_USERS_FAILURE, LOAD_USERS_SUCCESS, SHOW_USERS} from './addressBookActions';
-import {APPLY_SEARCH} from '../navBar/navBarActions';
+import {APPLY_USER_FILTER, LOAD_USERS, LOAD_USERS_FAILURE, LOAD_USERS_SUCCESS} from './addressBookActions';
 
 function addressBookReducers(state = {}, action) {
     switch (action.type) {
         case LOAD_USERS:
             return {...state, isFetching: true};
-        case SHOW_USERS:
-            return {
-                ...state,
-                visibleUsers: applyFilter(state.loadedUsers, state.filter)
-            };
         case LOAD_USERS_SUCCESS:
             return {
                 ...state,
@@ -24,11 +18,10 @@ function addressBookReducers(state = {}, action) {
                 isFetching: false,
                 isError: true
             };
-        case APPLY_SEARCH:
+        case APPLY_USER_FILTER:
             return {
                 ...state,
-                visibleUsers: applyFilter(state.loadedUsers, action.value),
-                filter: action.value
+                visibleUsers: applyFilter(state.loadedUsers, action.filter)
             };
         default:
             return state;
@@ -36,9 +29,29 @@ function addressBookReducers(state = {}, action) {
 }
 
 function applyFilter(users, filter) {
-    const filterValueLowerCase = (filter || '').toLowerCase();
-    return (users || []).filter(user => {
-        return `${user.name.first} ${user.name.last}`.toLowerCase().includes(filterValueLowerCase);
-    });
+    return (users || [])
+        .filter(applyNationalitiesFilter(filter?.nationalities))
+        .filter(applyNameFilter(filter?.name));
 }
+
+
+function applyNationalitiesFilter(nationalities) {
+    return (user) => {
+        if ((nationalities || []).length > 0) {
+            return nationalities.includes(user.nat);
+        }
+        return true;
+    };
+}
+
+function applyNameFilter(name) {
+    const lowerCaseName = (name || '').toLowerCase();
+    return (user) => {
+        if (lowerCaseName) {
+            return `${user.name.first} ${user.name.last}`.toLowerCase().includes(lowerCaseName);
+        }
+        return true;
+    };
+}
+
 export default addressBookReducers;

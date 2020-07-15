@@ -12,7 +12,12 @@ const mockStore = configureMockStore(middlewares);
 describe('<AddressBook />', () => {
     test('it should mount', () => {
 
-        const store = mockStore({addressBook: {users: []}});
+        const store = mockStore({
+            addressBook: {},
+            navBar: {
+                search: ''
+            }
+        });
 
         render(
             <Provider store={store}>

@@ -1,11 +1,12 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import {
+    APPLY_USER_FILTER,
     LOAD_USERS,
     LOAD_USERS_FAILURE,
     LOAD_USERS_SUCCESS,
     loadInitialUsers,
-    loadNextUsers, SHOW_USERS
+    loadNextUsers
 } from './addressBookActions';
 import fetchMock from 'fetch-mock';
 
@@ -34,7 +35,7 @@ describe('address book actions', () => {
         test('should load first users and dispatch LOAD_USERS_SUCCESS upon success', () => {
             const expectedUsers = [{id: 1}, {id: 2}];
 
-            fetchMock.mock('https://randomuser.me/api/?page=1&results=50&seed=addressbook', {
+            fetchMock.mock('https://randomuser.me/api/1.3/?page=1&results=50&seed=addressbook&inc=name,login,location,email,phone,cell,picture,nat&nat=CH,ES,FR,GB', {
                 body: {results: expectedUsers},
                 headers: {'content-type': 'application/json'}
             });
@@ -54,7 +55,7 @@ describe('address book actions', () => {
         test('should load first users and dispatch SHOW_USERS upon success', () => {
             const expectedUsers = [{id: 1}, {id: 2}];
 
-            fetchMock.mock('https://randomuser.me/api/?page=1&results=50&seed=addressbook', {
+            fetchMock.mock('https://randomuser.me/api/1.3/?page=1&results=50&seed=addressbook&inc=name,login,location,email,phone,cell,picture,nat&nat=CH,ES,FR,GB', {
                 body: {results: expectedUsers},
                 headers: {'content-type': 'application/json'}
             });
@@ -62,7 +63,7 @@ describe('address book actions', () => {
             const expectedActions = [
                 null, // ignored
                 null, // ignored
-                {type: SHOW_USERS}
+                {type: APPLY_USER_FILTER, filter: {}}
             ];
 
             const store = mockStore({addressBook: {}});
@@ -81,7 +82,7 @@ describe('address book actions', () => {
             ];
             const expectedUsers = [{id: 1}, {id: 2}];
 
-            fetchMock.mock('https://randomuser.me/api/?page=1&results=50&seed=addressbook', {
+            fetchMock.mock('https://randomuser.me/api/1.3/?page=1&results=50&seed=addressbook&inc=name,login,location,email,phone,cell,picture,nat&nat=CH,ES,FR,GB', {
                 body: {results: expectedUsers},
                 headers: {'content-type': 'application/json'}
             });
@@ -104,7 +105,7 @@ describe('address book actions', () => {
                 {type: LOAD_USERS_SUCCESS, users: expectedUsers}
             ];
 
-            fetchMock.mock('https://randomuser.me/api/?page=1&results=50&seed=addressbook', {
+            fetchMock.mock('https://randomuser.me/api/1.3/?page=1&results=50&seed=addressbook&inc=name,login,location,email,phone,cell,picture,nat&nat=CH,ES,FR,GB', {
                 body: {results: expectedUsers},
                 headers: {'content-type': 'application/json'}
             });
@@ -141,7 +142,7 @@ describe('address book actions', () => {
         test('should dispatch LOAD_USER and LOAD_USERS_SUCCESS when fetching users is successfully executed', () => {
             const expectedUsers = [{id: 1}, {id: 2}];
 
-            fetchMock.getOnce('https://randomuser.me/api/?page=1&results=50&seed=addressbook', {
+            fetchMock.getOnce('https://randomuser.me/api/1.3/?page=1&results=50&seed=addressbook&inc=name,login,location,email,phone,cell,picture,nat&nat=CH,ES,FR,GB', {
                 body: {results: expectedUsers},
                 headers: {'content-type': 'application/json'}
             });
@@ -158,7 +159,7 @@ describe('address book actions', () => {
         });
 
         test('should dispatch LOAD_USERS_FAILURE when fetching is failing', () => {
-            fetchMock.getOnce('https://randomuser.me/api/?page=1&results=50&seed=addressbook', () => {
+            fetchMock.getOnce('https://randomuser.me/api/1.3/?page=1&results=50&seed=addressbook&inc=name,login,location,email,phone,cell,picture,nat&nat=CH,ES,FR,GB', () => {
                 throw new Error('network error');
             });
 
