@@ -5,7 +5,10 @@ personal information. The app displays a list of users for the end user to brows
 get personal information for a selected user, where you can also select via a settings page
 which nationalities you're interested in.
 
-## Run the app
+## Pre Requisites (for local build)
+Install Node.js and npm according to the official documentation [https://docs.npmjs.com/downloading-and-installing-node-js-and-npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+
+## Run the app (locally)
 1. Execute ```npm install``` in terminal to download all required dependencies
 2. Run ```npm run start``` to trigger the build and starting the server. Await for your browser to open on [http://localhost:3000](http://localhost:3000)
 
