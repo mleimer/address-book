@@ -76,12 +76,14 @@ function NavBar() {
     };
 
     return (
-        <div data-testid={'nav-bar'}>
+        <div data-testid="nav-bar">
             <AppBar position="static">
                 <Toolbar className={classes.toolbar}>
                     <Tabs value={selectedTabIndex} onChange={handleTabChange} centered>
-                        <Tab label='Address book' component={Link} icon={<ContactMailIcon/>} to="/"/>
-                        <Tab label='Settings' component={Link} icon={<SettingsIcon/>} to="/settings"/>
+                        <Tab label='Address book' component={Link} icon={<ContactMailIcon/>} to="/"
+                             data-testid="address-book-tab"/>
+                        <Tab label='Settings' component={Link} icon={<SettingsIcon/>} to="/settings"
+                             data-testid="settings-tab"/>
                     </Tabs>
                     {
                         selectedTabIndex === 0 &&
@@ -95,7 +97,7 @@ function NavBar() {
                                     root: classes.inputRoot,
                                     input: classes.inputInput
                                 }}
-                                inputProps={{'aria-label': 'search'}}
+                                inputProps={{'aria-label': 'search', 'data-testid': 'search-field'}}
                                 onChange={handleSearchValueChange}
                                 value={searchFieldValue}
                             />
