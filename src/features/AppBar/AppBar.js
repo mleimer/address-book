@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import AppBar from '@material-ui/core/AppBar';
+import MaterialAppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {Link} from 'react-router-dom';
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function NavBar() {
+function AppBar() {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -77,7 +77,7 @@ function NavBar() {
 
     return (
         <div data-testid="nav-bar">
-            <AppBar position="static">
+            <MaterialAppBar position="static">
                 <Toolbar className={classes.toolbar}>
                     <Tabs value={selectedTabIndex} onChange={handleTabChange} centered>
                         <Tab label='Address book' component={Link} icon={<ContactMailIcon/>} to="/"
@@ -104,13 +104,13 @@ function NavBar() {
                         </div>
                     }
                 </Toolbar>
-            </AppBar>
+            </MaterialAppBar>
         </div>
     );
 }
 
-NavBar.propTypes = {};
+AppBar.propTypes = {};
 
-NavBar.defaultProps = {};
+AppBar.defaultProps = {};
 
-export default NavBar;
+export default AppBar;

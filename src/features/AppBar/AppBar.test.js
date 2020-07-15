@@ -1,20 +1,19 @@
 import React from 'react';
 import {render, screen} from '../../test/testUtils';
-import NavBar from './NavBar';
+import AppBar from './AppBar';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {fireEvent} from '@testing-library/react';
-
 
 const navBarId = 'nav-bar';
 const searchFieldId = 'search-field';
 const addressBookTabId = 'address-book-tab';
 const settingsTabId = 'settings-tab';
 
-describe('<NavBar />', () => {
+describe('<AppBar/>', () => {
     test('it should mount within Router component and Address Book and Settings Tab', () => {
         render(
             <Router>
-                <NavBar/>
+                <AppBar/>
             </Router>
         );
 
@@ -32,7 +31,7 @@ describe('<NavBar />', () => {
     test('should show search field on Address book tab, but not on Settings tab', () => {
         const {getByTestId, queryByTestId} = render(
             <Router>
-                <NavBar/>
+                <AppBar/>
             </Router>
         );
 

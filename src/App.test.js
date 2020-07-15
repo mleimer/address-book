@@ -2,7 +2,7 @@ import React from 'react';
 import {render} from '@testing-library/react';
 import App from './App';
 
-test('NavBar should be present', () => {
+test('AppBar should be present', () => {
     const {getByTestId} = render(
         <App/>
     );
