@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
-import NavBar from './components/NavBar';
+import NavBar from './features/NavBar';
 import AddressBook from './features/AddressBook';
 import {Provider} from 'react-redux';
 import configureStore from './store/configureStore';
