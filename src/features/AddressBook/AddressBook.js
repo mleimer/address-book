@@ -89,7 +89,7 @@ function AddressBook({isScrolledToBottom, onRender}) {
             </Grid>
             {
                 isFetching &&
-                <div className={classes.centeredContent}>
+                <div className={classes.centeredContent} data-testid="fetching-users">
                     <CircularProgress/>
                 </div>
             }
@@ -97,13 +97,14 @@ function AddressBook({isScrolledToBottom, onRender}) {
                 !showAllUsersLoadedMessage && search &&
                 <div className={classes.centeredContent}>
                     <WarningIcon color="primary" className={classes.icon}/>
-                    <Typography component="span">user catalog loading on hold while search filter is set</Typography>
+                    <Typography component="span" data-testid="user-load-on-hold">user catalog loading on hold while
+                        search filter is set</Typography>
                 </div>
             }
             {
                 showAllUsersLoadedMessage &&
                 <div className={classes.centeredContent}>
-                    <Typography component="span">end of users catalog</Typography>
+                    <Typography component="span" data-testid="end-of-users-catalog">end of users catalog</Typography>
                 </div>
             }
         </Container>
