@@ -1,7 +1,7 @@
 import React from 'react';
 import {sampleUser} from '../../../../test/mock/user';
 import UserOverviewDialog from './UserOverviewDialog';
-import {render} from '../../../../test/testUtils';
+import {renderWithProviders} from '../../../../test/testUtils';
 import {fireEvent} from '@testing-library/react';
 
 const userOverviewDialog = 'user-overview-dialog';
@@ -15,7 +15,7 @@ const closeButton = 'close-button';
 describe('<UserOverviewDialog/>', () => {
 
     test('when closed, it should not mount Dialog', () => {
-        const {queryByTestId} = render(
+        const {queryByTestId} = renderWithProviders(
             <UserOverviewDialog
                 user={sampleUser}
                 open={false}
@@ -31,7 +31,7 @@ describe('<UserOverviewDialog/>', () => {
 
     describe('when open', () => {
         test('it should mount Dialog', () => {
-            const {getByTestId} = render(
+            const {getByTestId} = renderWithProviders(
                 <UserOverviewDialog
                     user={sampleUser}
                     open
@@ -46,7 +46,7 @@ describe('<UserOverviewDialog/>', () => {
         });
 
         test('should show user name', () => {
-            const {getByTestId} = render(
+            const {getByTestId} = renderWithProviders(
                 <UserOverviewDialog
                     user={sampleUser}
                     open
@@ -62,7 +62,7 @@ describe('<UserOverviewDialog/>', () => {
         });
 
         test('should show user address', () => {
-            const {getByTestId} = render(
+            const {getByTestId} = renderWithProviders(
                 <UserOverviewDialog
                     user={sampleUser}
                     open
@@ -81,7 +81,7 @@ describe('<UserOverviewDialog/>', () => {
         });
 
         test('should show user cell and phone', () => {
-            const {getByTestId} = render(
+            const {getByTestId} = renderWithProviders(
                 <UserOverviewDialog
                     user={sampleUser}
                     open
@@ -103,7 +103,7 @@ describe('<UserOverviewDialog/>', () => {
             const mockOnClose = jest.fn(() => {
             });
 
-            const {getByTestId} = render(
+            const {getByTestId} = renderWithProviders(
                 <UserOverviewDialog
                     user={sampleUser}
                     open

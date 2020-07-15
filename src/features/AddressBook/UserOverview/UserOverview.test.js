@@ -1,7 +1,7 @@
 import React from 'react';
 import UserOverview from './UserOverview';
 import {sampleUser} from '../../../test/mock/user';
-import {render} from '../../../test/testUtils';
+import {renderWithProviders} from '../../../test/testUtils';
 import {fireEvent} from '@testing-library/react';
 
 const userOverviewDialog = 'user-overview-dialog';
@@ -13,7 +13,7 @@ const userShowDetailsLink = 'user-show-details-link';
 describe('<UserOverview/>', () => {
 
     test('should show user name', () => {
-        const {getByTestId} = render(
+        const {getByTestId} = renderWithProviders(
             <UserOverview
                 user={sampleUser}
                 open
@@ -30,7 +30,7 @@ describe('<UserOverview/>', () => {
     });
 
     test('should show user login', () => {
-        const {getByTestId} = render(
+        const {getByTestId} = renderWithProviders(
             <UserOverview
                 user={sampleUser}
                 open
@@ -47,7 +47,7 @@ describe('<UserOverview/>', () => {
     });
 
     test('should show user email', () => {
-        const {getByTestId} = render(
+        const {getByTestId} = renderWithProviders(
             <UserOverview
                 user={sampleUser}
                 open
@@ -63,8 +63,8 @@ describe('<UserOverview/>', () => {
         expect(email).toHaveTextContent('charlie.blanc@example.com');
     });
 
-    test('should render dialog when show details link is clicked', () => {
-        const {getByTestId, queryByTestId} = render(
+    test('should renderWithProviders dialog when show details link is clicked', () => {
+        const {getByTestId, queryByTestId} = renderWithProviders(
             <UserOverview
                 user={sampleUser}
                 open onClose={() => {

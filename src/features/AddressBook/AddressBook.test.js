@@ -1,10 +1,10 @@
 import React from 'react';
-import {render, screen} from '../../test/testUtils';
+import {renderWithProviders} from '../../test/testUtils';
 import AddressBook from './AddressBook';
 
 describe('<AddressBook />', () => {
     test('it should mount', () => {
-        render(
+        const {getByTestId} = renderWithProviders(
             <AddressBook
                 isScrolledToBottom
                 onRender={() => {
@@ -12,7 +12,7 @@ describe('<AddressBook />', () => {
             />
         );
 
-        const addressBook = screen.getByTestId('address-book');
+        const addressBook = getByTestId('address-book');
 
         expect(addressBook).toBeInTheDocument();
     });

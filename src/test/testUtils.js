@@ -35,7 +35,7 @@ const customRender = (ui, options) =>
 
 export * from '@testing-library/react';
 
-export {customRender as render};
+export {customRender as renderWithProviders};
 
 
 AllTheProviders.propTypes = {

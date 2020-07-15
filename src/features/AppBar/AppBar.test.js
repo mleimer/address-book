@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, screen} from '../../test/testUtils';
+import {renderWithProviders} from '../../test/testUtils';
 import AppBar from './AppBar';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {fireEvent} from '@testing-library/react';
@@ -11,15 +11,15 @@ const settingsTabId = 'settings-tab';
 
 describe('<AppBar/>', () => {
     test('it should mount within Router component and Address Book and Settings Tab', () => {
-        render(
+        const {getByTestId} = renderWithProviders(
             <Router>
                 <AppBar/>
             </Router>
         );
 
-        const navBar = screen.getByTestId(navBarId);
-        const addressBookTab = screen.getByTestId(addressBookTabId);
-        const settingsTab = screen.getByTestId(settingsTabId);
+        const navBar = getByTestId(navBarId);
+        const addressBookTab = getByTestId(addressBookTabId);
+        const settingsTab = getByTestId(settingsTabId);
 
         expect(navBar).toBeInTheDocument();
         expect(addressBookTab).toBeInTheDocument();
@@ -29,7 +29,7 @@ describe('<AppBar/>', () => {
     });
 
     test('should show search field on Address book tab, but not on Settings tab', () => {
-        const {getByTestId, queryByTestId} = render(
+        const {getByTestId, queryByTestId} = renderWithProviders(
             <Router>
                 <AppBar/>
             </Router>

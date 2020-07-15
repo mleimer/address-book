@@ -1,12 +1,12 @@
 import React from 'react';
-import {mockedStore, render} from '../../test/testUtils';
+import {mockedStore, renderWithProviders} from '../../test/testUtils';
 import Settings from './Settings';
 import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
 
 describe('<Settings/>', () => {
     test('it should mount', () => {
-        const {getByTestId} = render(
+        const {getByTestId} = renderWithProviders(
             <Settings/>
         );
 
@@ -16,7 +16,7 @@ describe('<Settings/>', () => {
     });
 
     test('all nationalities should be pre-selected', () => {
-        const {getByTestId} = render(
+        const {getByTestId} = renderWithProviders(
             <Settings/>
         );
 

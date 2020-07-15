@@ -1,5 +1,5 @@
 import React from 'react';
-import {render} from '../../test/testUtils';
+import {renderWithProviders} from '../../test/testUtils';
 import PersonIcon from '@material-ui/icons/Person';
 import IconWithText from './index';
 
@@ -9,7 +9,7 @@ const textAndChildrenId = 'text-and-children';
 describe('<IconWithText/>', () => {
 
     test('it should mount', () => {
-        const {getByTestId} = render(
+        const {getByTestId} = renderWithProviders(
             <IconWithText
                 data-testid={containerId}
                 icon={<PersonIcon/>}
@@ -22,7 +22,7 @@ describe('<IconWithText/>', () => {
     });
 
     test('it should show text', () => {
-        const {getByTestId} = render(
+        const {getByTestId} = renderWithProviders(
             <IconWithText
                 icon={<PersonIcon/>}
                 text={'Sample text'}
@@ -36,7 +36,7 @@ describe('<IconWithText/>', () => {
     });
 
     test('it should show children', () => {
-        const {getByTestId} = render(
+        const {getByTestId} = renderWithProviders(
             <IconWithText
                 icon={<PersonIcon/>}
             >
