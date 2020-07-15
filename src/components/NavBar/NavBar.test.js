@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, screen} from '../../testUtils';
+import {render, screen} from '../../test/testUtils';
 import NavBar from './NavBar';
 import {BrowserRouter as Router} from 'react-router-dom';
 

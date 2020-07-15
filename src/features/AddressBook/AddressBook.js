@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import Grid from '@material-ui/core/Grid';
 import {makeStyles} from '@material-ui/core/styles';
 import {useDispatch, useSelector} from 'react-redux';
-import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import {applyUserFilter, loadInitialUsers, loadNextUsers} from '../../store/addressBook/addressBookActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -10,6 +9,7 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import {useToasts} from 'react-toast-notifications';
+import UserOverview from './UserOverview';
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -17,10 +17,7 @@ const useStyles = makeStyles(() => ({
     },
     grid: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))'
-    },
-    item: {
-        overflow: 'hidden'
+        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))'
     },
     icon: {
         margin: '0 0.5rem'
@@ -76,7 +73,7 @@ function AddressBook({isScrolledToBottom, onRender}) {
         if (error) {
             addToast(error, {appearance: 'error'});
         }
-    }, [error]);
+    }, [error, addToast]);
 
     return (
         <Container className={classes.container}>
@@ -84,31 +81,29 @@ function AddressBook({isScrolledToBottom, onRender}) {
                 {
                     (visibleUsers || []).map(user =>
                         <Grid item key={user.login.uuid}>
-                            <Paper className={classes.item} elevation={3}>
-                                <pre>{JSON.stringify(user, null, 2)}</pre>
-                            </Paper>
+                            <UserOverview user={user}/>
                         </Grid>
                     )
                 }
             </Grid>
             {
                 isFetching &&
-                <Container className={classes.centeredContent}>
+                <div className={classes.centeredContent}>
                     <CircularProgress/>
-                </Container>
+                </div>
             }
             {
                 !showAllUsersLoadedMessage && search &&
-                <Container className={classes.centeredContent}>
+                <div className={classes.centeredContent}>
                     <WarningIcon color="primary" className={classes.icon}/>
                     <Typography component="span">user catalog loading on hold while search filter is set</Typography>
-                </Container>
+                </div>
             }
             {
                 showAllUsersLoadedMessage &&
-                <Container className={classes.centeredContent}>
+                <div className={classes.centeredContent}>
                     <Typography component="span">end of users catalog</Typography>
-                </Container>
+                </div>
             }
         </Container>
     );

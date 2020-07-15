@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, screen} from '../../testUtils';
+import {render, screen} from '../../test/testUtils';
 import Settings from './Settings';
 
 describe('<Settings/>', () => {

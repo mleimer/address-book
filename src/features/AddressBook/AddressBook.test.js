@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, screen} from '../../testUtils';
+import {render, screen} from '../../test/testUtils';
 import AddressBook from './AddressBook';
 
 describe('<AddressBook />', () => {
