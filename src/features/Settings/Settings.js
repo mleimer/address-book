@@ -53,6 +53,7 @@ function Settings() {
             <FormControl className={classes.formControl}>
                 <InputLabel id="nationalities-select-label">Nationalities</InputLabel>
                 <Select
+                    data-testid="nationalities-select"
                     labelId="nationalities-select-label"
                     id="nationalities-select-checkbox"
                     multiple

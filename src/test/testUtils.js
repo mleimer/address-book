@@ -10,7 +10,7 @@ import {ToastProvider} from 'react-toast-notifications';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-const store = mockStore({
+export const mockedStore = mockStore({
     addressBook: {},
     settings: {
         nationalities: NATIONALITIES.map(n => n.key)
@@ -23,7 +23,7 @@ const store = mockStore({
 const AllTheProviders = ({children}) => {
     return (
         <ToastProvider>
-            <Provider store={store}>
+            <Provider store={mockedStore}>
                 {children}
             </Provider>
         </ToastProvider>

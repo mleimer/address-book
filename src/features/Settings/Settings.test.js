@@ -1,15 +1,39 @@
 import React from 'react';
-import {render, screen} from '../../test/testUtils';
+import {mockedStore, render} from '../../test/testUtils';
 import Settings from './Settings';
+import renderer from 'react-test-renderer';
+import {Provider} from 'react-redux';
 
 describe('<Settings/>', () => {
     test('it should mount', () => {
-        render(
+        const {getByTestId} = render(
             <Settings/>
         );
 
-        const addressBook = screen.getByTestId('settings');
+        const settings = getByTestId('settings');
 
-        expect(addressBook).toBeInTheDocument();
+        expect(settings).toBeInTheDocument();
     });
+
+    test('all nationalities should be pre-selected', () => {
+        const {getByTestId} = render(
+            <Settings/>
+        );
+
+        const nationalitiesSelect = getByTestId('nationalities-select');
+
+        expect(nationalitiesSelect).toBeInTheDocument();
+        expect(nationalitiesSelect).toHaveTextContent('CH, ES, FR, GB');
+    });
+
+    test('it should remain stable (snapshot test)', () => {
+        const component = renderer.create(
+            <Provider store={mockedStore}>
+                <Settings/>
+            </Provider>
+        ).toJSON();
+
+        expect(component).toMatchSnapshot();
+    });
+
 });
