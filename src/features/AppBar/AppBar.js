@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import MaterialAppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import SettingsIcon from '@material-ui/icons/Settings';
 import InputBase from '@material-ui/core/InputBase';
@@ -59,12 +59,22 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
+function getInitialSelectedTabIndexFromRoute(location) {
+    switch (location.pathname) {
+        case '/settings':
+            return 1;
+        default:
+            return 0;
+    }
+}
+
 function AppBar() {
     const classes = useStyles();
 
     const dispatch = useDispatch();
-    const [selectedTabIndex, setSelectedTabIndex] = useState(0);
-
+    const location = useLocation();
+    const [selectedTabIndex, setSelectedTabIndex] = useState(getInitialSelectedTabIndexFromRoute(location));
     const searchFieldValue = useSelector(state => state.navBar.search);
 
     const handleTabChange = (event, newValue) => {
