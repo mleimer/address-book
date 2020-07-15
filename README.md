@@ -53,11 +53,15 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 ## Dependencies
 - React (Core Framework)
 - React-Redux (for state management going beyond React Hooks)
+- Redux-Thunk (for asynchronous actions relying on state)
 - React-Scripts (having the following dependencies among others:)
   - Babel
   - Webpack
   - Jest
   - ESLint
 - Material-UI (UI Framework)
+- React-Toast-Notifications (Library introducing useToasts hook to show notifications as toasts in UI)
+- Cross-Fetch (for making HTTP-Requests to the REST-API)
 - ESLint (for static code analysis and common code style among development team)
 - Jest (Testing Framework for React apps)
+- Redux Mock Store (to facilitate unit testing with Redux)
