@@ -37,6 +37,8 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
+const APP_CONTENT_ID = 'app-content';
+
 function App() {
 
     const classes = useStyles();
@@ -50,7 +52,7 @@ function App() {
      * @type {function}
      */
     const reevaluateScrollPosition = useCallback(() => {
-        let scrollableContent = document.getElementById('app-content');
+        let scrollableContent = document.getElementById(APP_CONTENT_ID);
         if (!scrollableContent) {
             return;
         }
@@ -82,7 +84,7 @@ function App() {
                     <div className={classes.app}>
                         <NavBar className={classes.navigation}/>
                         <div className={classes.content}>
-                            <div className={classes.innerContent} id="app-content" onScroll={handleScroll}>
+                            <div className={classes.innerContent} id={APP_CONTENT_ID} onScroll={handleScroll}>
                                 <Switch>
                                     <Route path="/" exact>
                                         <AddressBook isScrolledToBottom={isScrolledToBottom}
