@@ -13,7 +13,8 @@ import UserOverview from './UserOverview';
 
 const useStyles = makeStyles(() => ({
     container: {
-        padding: '1rem'
+        padding: '1rem',
+        maxWidth: 'unset'
     },
     grid: {
         display: 'grid',

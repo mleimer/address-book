@@ -14,7 +14,8 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        padding: '1rem'
+        padding: '1rem',
+        maxWidth: 'unset'
     },
     formControl: {
         margin: theme.spacing(1),
