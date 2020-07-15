@@ -1,11 +1,11 @@
 import React, {useCallback, useState} from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
+import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import NavBar from './components/NavBar';
 import AddressBook from './features/AddressBook';
 import {Provider} from 'react-redux';
 import configureStore from './store/configureStore';
 import {makeStyles} from '@material-ui/core/styles';
+import Settings from './features/Settings';
 
 const store = configureStore();
 
@@ -82,13 +82,14 @@ function App() {
                     <div className={classes.content}>
                         <div className={classes.innerContent} id="app-content" onScroll={handleScroll}>
                             <Switch>
-                                <Route path="/settings">
-                                    <Typography component="h2">Settings</Typography>
-                                </Route>
-                                <Route path="/">
+                                <Route path="/" exact>
                                     <AddressBook isScrolledToBottom={isScrolledToBottom}
                                                  onRender={reevaluateScrollPosition}/>
                                 </Route>
+                                <Route path="/settings" exact>
+                                    <Settings/>
+                                </Route>
+                                <Redirect from="" to="/"/>
                             </Switch>
                         </div>
                     </div>
