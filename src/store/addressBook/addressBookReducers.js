@@ -31,7 +31,7 @@ function addressBookReducers(state = {}, action) {
 function applyFilter(users, filter) {
     return (users || [])
         .filter(applyNationalitiesFilter(filter?.nationalities))
-        .filter(applyNameFilter(filter?.name));
+        .filter(applyNameFilter((filter?.name || '')));
 }
 
 
@@ -45,10 +45,9 @@ function applyNationalitiesFilter(nationalities) {
 }
 
 function applyNameFilter(name) {
-    const lowerCaseName = (name || '').toLowerCase();
     return (user) => {
-        if (lowerCaseName) {
-            return `${user.name.first} ${user.name.last}`.toLowerCase().includes(lowerCaseName);
+        if (name) {
+            return `${user.name.first} ${user.name.last}`.toLowerCase().includes(name.toLowerCase());
         }
         return true;
     };
