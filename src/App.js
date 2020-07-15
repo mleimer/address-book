@@ -6,6 +6,7 @@ import {Provider} from 'react-redux';
 import configureStore from './store/configureStore';
 import {makeStyles} from '@material-ui/core/styles';
 import Settings from './features/Settings';
+import {ToastProvider} from 'react-toast-notifications';
 
 const store = configureStore();
 
@@ -75,27 +76,29 @@ function App() {
     };
 
     return (
-        <Provider store={store}>
-            <Router>
-                <div className={classes.app}>
-                    <NavBar className={classes.navigation}/>
-                    <div className={classes.content}>
-                        <div className={classes.innerContent} id="app-content" onScroll={handleScroll}>
-                            <Switch>
-                                <Route path="/" exact>
-                                    <AddressBook isScrolledToBottom={isScrolledToBottom}
-                                                 onRender={reevaluateScrollPosition}/>
-                                </Route>
-                                <Route path="/settings" exact>
-                                    <Settings/>
-                                </Route>
-                                <Redirect from="" to="/"/>
-                            </Switch>
+        <ToastProvider>
+            <Provider store={store}>
+                <Router>
+                    <div className={classes.app}>
+                        <NavBar className={classes.navigation}/>
+                        <div className={classes.content}>
+                            <div className={classes.innerContent} id="app-content" onScroll={handleScroll}>
+                                <Switch>
+                                    <Route path="/" exact>
+                                        <AddressBook isScrolledToBottom={isScrolledToBottom}
+                                                     onRender={reevaluateScrollPosition}/>
+                                    </Route>
+                                    <Route path="/settings" exact>
+                                        <Settings/>
+                                    </Route>
+                                    <Redirect from="" to="/"/>
+                                </Switch>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </Router>
-        </Provider>
+                </Router>
+            </Provider>
+        </ToastProvider>
     );
 }
 

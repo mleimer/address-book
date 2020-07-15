@@ -8,7 +8,7 @@ function addressBookReducers(state = {}, action) {
             return {
                 ...state,
                 isFetching: false,
-                isError: false,
+                error: null,
                 loadedUsers: [...state.loadedUsers || [], ...action.users],
                 allUsersLoaded: [...state.loadedUsers || [], ...action.users].length >= 1000
             };
@@ -16,7 +16,7 @@ function addressBookReducers(state = {}, action) {
             return {
                 ...state,
                 isFetching: false,
-                isError: true
+                error: 'Users could not be loaded. Please try again later!'
             };
         case APPLY_USER_FILTER:
             return {

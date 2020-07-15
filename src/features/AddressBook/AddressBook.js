@@ -9,6 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
+import {useToasts} from 'react-toast-notifications';
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -42,7 +43,9 @@ function AddressBook({isScrolledToBottom, onRender}) {
     const visibleUsers = useSelector(state => state.addressBook.visibleUsers);
     const allUsersLoaded = useSelector(state => state.addressBook.allUsersLoaded);
     const isFetching = useSelector(state => state.addressBook.isFetching);
+    const error = useSelector(state => state.addressBook.error);
     const [showAllUsersLoadedMessage, setShowAllUsersLoadedMessage] = useState(false);
+    const {addToast} = useToasts();
 
     useEffect(() => {
         onRender();
@@ -68,6 +71,12 @@ function AddressBook({isScrolledToBottom, onRender}) {
             }
         }
     }, [allUsersLoaded, isFetching, isScrolledToBottom, setShowAllUsersLoadedMessage, dispatch]);
+
+    useEffect(() => {
+        if (error) {
+            addToast(error, {appearance: 'error'});
+        }
+    }, [error]);
 
     return (
         <Container className={classes.container}>

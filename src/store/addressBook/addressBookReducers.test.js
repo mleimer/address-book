@@ -34,7 +34,7 @@ describe('addressBookReducers', () => {
                 {
                     allUsersLoaded: false,
                     isFetching: false,
-                    isError: false,
+                    error: null,
                     loadedUsers: loadedUsers
                 }
             );
@@ -75,13 +75,13 @@ describe('addressBookReducers', () => {
     });
 
     describe('LOAD_USERS_SUCCESS', () => {
-        test('should set isError to true and isFetching to false', () => {
+        test('should set error to true and isFetching to false', () => {
             expect(
                 addressBookReducers({isFetching: true}, {
                     type: LOAD_USERS_FAILURE
                 })
             ).toEqual(
-                {isFetching: false, isError: true}
+                {isFetching: false, error: 'Users could not be loaded. Please try again later!'}
             );
         });
     });

@@ -1,29 +1,15 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import {render, screen} from '../../testUtils';
 import AddressBook from './AddressBook';
-import {Provider} from 'react-redux';
-import thunk from 'redux-thunk';
-import configureMockStore from 'redux-mock-store';
-
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
 
 describe('<AddressBook />', () => {
     test('it should mount', () => {
-
-        const store = mockStore({
-            addressBook: {},
-            navBar: {
-                search: ''
-            }
-        });
-
         render(
-            <Provider store={store}>
-                <AddressBook isScrolledToBottom onRender={() => {
-                }}/>
-            </Provider>
+            <AddressBook
+                isScrolledToBottom
+                onRender={() => {
+                }}
+            />
         );
 
         const addressBook = screen.getByTestId('address-book');
