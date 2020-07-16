@@ -55,6 +55,10 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npm run build-serve`
+
+Executes `npm run build` first, followed by statically serving the build folder locally.
+
 ### `npm run lint`
 
 Executes static code analysis on the source code
