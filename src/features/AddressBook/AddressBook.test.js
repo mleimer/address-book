@@ -35,7 +35,7 @@ describe('<AddressBook />', () => {
             addressBook: {
                 allUsersLoaded: false
             },
-            navBar: {
+            appBar: {
                 search: ''
             }
         });
@@ -62,7 +62,7 @@ describe('<AddressBook />', () => {
             addressBook: {
                 allUsersLoaded: true
             },
-            navBar: {
+            appBar: {
                 search: ''
             }
         });
@@ -88,7 +88,7 @@ describe('<AddressBook />', () => {
     test('it should show "user catalog loading on hold while search filter is set" when search filter is present', () => {
         const mockedStore = mockStore({
             addressBook: {},
-            navBar: {
+            appBar: {
                 search: 'someValue'
             }
         });
@@ -113,7 +113,7 @@ describe('<AddressBook />', () => {
     test('it should not show "user catalog loading on hold while search filter is set" when no search filter is present', () => {
         const mockedStore = mockStore({
             addressBook: {},
-            navBar: {
+            appBar: {
                 search: ''
             }
         });
@@ -140,7 +140,7 @@ describe('<AddressBook />', () => {
             addressBook: {
                 isFetching: true
             },
-            navBar: {
+            appBar: {
                 search: ''
             }
         });
@@ -167,7 +167,7 @@ describe('<AddressBook />', () => {
             addressBook: {
                 isFetching: false
             },
-            navBar: {
+            appBar: {
                 search: ''
             }
         });

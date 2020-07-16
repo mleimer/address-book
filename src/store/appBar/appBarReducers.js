@@ -1,10 +1,10 @@
-import {SET_SEARCH} from './navBarActions';
+import {SET_SEARCH} from './appBarActions';
 
 const initialSettingsState = {
     search: ''
 };
 
-function navBarReducers(state = initialSettingsState, action) {
+function appBarReducers(state = initialSettingsState, action) {
     switch (action.type) {
         case SET_SEARCH: {
             return {
@@ -17,4 +17,4 @@ function navBarReducers(state = initialSettingsState, action) {
     }
 }
 
-export default navBarReducers;
+export default appBarReducers;

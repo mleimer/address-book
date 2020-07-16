@@ -4,7 +4,7 @@ import AppBar from './AppBar';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {fireEvent} from '@testing-library/react';
 
-const navBarId = 'nav-bar';
+const appBarId = 'app-bar';
 const searchFieldId = 'search-field';
 const addressBookTabId = 'address-book-tab';
 const settingsTabId = 'settings-tab';
@@ -17,11 +17,11 @@ describe('<AppBar/>', () => {
             </Router>
         );
 
-        const navBar = getByTestId(navBarId);
+        const appBar = getByTestId(appBarId);
         const addressBookTab = getByTestId(addressBookTabId);
         const settingsTab = getByTestId(settingsTabId);
 
-        expect(navBar).toBeInTheDocument();
+        expect(appBar).toBeInTheDocument();
         expect(addressBookTab).toBeInTheDocument();
         expect(addressBookTab).toHaveTextContent('Address book');
         expect(settingsTab).toBeInTheDocument();

@@ -1,6 +1,6 @@
-import {SET_SEARCH, setSearch} from './navBarActions';
+import {SET_SEARCH, setSearch} from './appBarActions';
 
-describe('nav bar actions', () => {
+describe('app bar actions', () => {
 
     describe('setSearch', () => {
         test('should dispatch SET_SEARCH with search value', () => {

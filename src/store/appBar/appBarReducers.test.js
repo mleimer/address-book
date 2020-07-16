@@ -1,10 +1,10 @@
-import navBarReducers from './navBarReducers';
-import {SET_SEARCH} from './navBarActions';
+import appBarReducers from './appBarReducers';
+import {SET_SEARCH} from './appBarActions';
 
-describe('navBarReducers', () => {
+describe('appBarReducers', () => {
     test('should return the initial state', () => {
         expect(
-            navBarReducers(undefined, {})
+            appBarReducers(undefined, {})
         ).toEqual(
             {
                 search: ''
@@ -17,7 +17,7 @@ describe('navBarReducers', () => {
             const searchValue = 'mySearchValue';
 
             expect(
-                navBarReducers({}, {
+                appBarReducers({}, {
                     type: SET_SEARCH,
                     value: searchValue
                 })

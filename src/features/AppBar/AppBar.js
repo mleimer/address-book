@@ -11,7 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import {makeStyles} from '@material-ui/core/styles';
 import {fade} from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux';
-import {setSearch} from '../../store/navBar/navBarActions';
+import {setSearch} from '../../store/appBar/appBarActions';
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -75,7 +75,7 @@ function AppBar() {
     const dispatch = useDispatch();
     const location = useLocation();
     const [selectedTabIndex, setSelectedTabIndex] = useState(getInitialSelectedTabIndexFromRoute(location));
-    const searchFieldValue = useSelector(state => state.navBar.search);
+    const searchFieldValue = useSelector(state => state.appBar.search);
 
     const handleTabChange = (event, newValue) => {
         setSelectedTabIndex(newValue);
@@ -86,7 +86,7 @@ function AppBar() {
     };
 
     return (
-        <div data-testid="nav-bar">
+        <div data-testid="app-bar">
             <MaterialAppBar position="static">
                 <Toolbar className={classes.toolbar}>
                     <Tabs value={selectedTabIndex} onChange={handleTabChange} centered>

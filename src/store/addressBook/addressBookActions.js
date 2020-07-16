@@ -33,7 +33,7 @@ function loadUsersFailureAction() {
 function shouldLoadUsers(state) {
     if (state.addressBook?.isFetching) {
         return false;
-    } else if (state.navBar?.search) {
+    } else if (state.appBar?.search) {
         return false;
     } else if (state.addressBook?.allUsersLoaded) {
         return false;
@@ -75,7 +75,7 @@ export function applyUserFilter() {
     return async (dispatch, state) => {
         const filter = {
             nationalities: state().settings?.nationalities,
-            name: state().navBar?.search
+            name: state().appBar?.search
         };
         return dispatch({
             type: APPLY_USER_FILTER,

@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 import addressBookReducers from './addressBook/addressBookReducers';
 import settingsReducers from './settings/settingsReducers';
-import navBarReducers from './navBar/navBarReducers';
+import appBarReducers from './appBar/appBarReducers';
 
 const rootReducer = combineReducers({
-    navBar: navBarReducers,
+    appBar: appBarReducers,
     addressBook: addressBookReducers,
     settings: settingsReducers
 });

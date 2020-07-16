@@ -15,7 +15,7 @@ export const mockedStore = mockStore({
     settings: {
         nationalities: NATIONALITIES.map(n => n.key)
     },
-    navBar: {
+    appBar: {
         search: ''
     }
 });

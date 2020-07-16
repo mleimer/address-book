@@ -7,5 +7,5 @@ test('AppBar should be present', () => {
         <App/>
     );
 
-    expect(getByTestId('nav-bar')).toBeInTheDocument();
+    expect(getByTestId('app-bar')).toBeInTheDocument();
 });

@@ -36,7 +36,7 @@ function AddressBook({isScrolledToBottom, onRender}) {
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const search = useSelector(state => state.navBar.search);
+    const search = useSelector(state => state.appBar.search);
     const nationalities = useSelector(state => state.settings?.nationalities);
     const loadedUsers = useSelector(state => state.addressBook.loadedUsers);
     const visibleUsers = useSelector(state => state.addressBook.visibleUsers);
