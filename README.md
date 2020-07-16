@@ -5,12 +5,28 @@ personal information. The app displays a list of users for the end user to brows
 get personal information for a selected user, where you can also select via a settings page
 which nationalities you're interested in.
 
-## Pre Requisites (for local build)
+## Run the application
+
+### Pre-Requisites
 Install Node.js and npm according to the official documentation [https://docs.npmjs.com/downloading-and-installing-node-js-and-npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
-## Run the app (locally)
+### Run a production build locally
+
 1. Execute ```npm install``` in terminal to download all required dependencies
-2. Run ```npm run start``` to trigger the build and starting the server. Await for your browser to open on [http://localhost:3000](http://localhost:3000)
+2. Execute ```npm run build-serve``` in terminal to create a production optimized build and statically serve it on port 4000
+3. Open provided URL, most likely [http://localhost:4000](http://localhost:4000) in your preferred browser
+
+(!) If port 4000 is already in use / cannot be used, consider doing the following steps instead:
+ serve -s build -l 4000
+1. Execute ```npm install``` in terminal to download all required dependencies
+2. Execute ```npm run build``` in terminal to create a production optimized build
+3. Execute ```serve -s build -l PORT``` where PORT shall represent your preferred port, eg. 3200
+4. Open provided URL `http://localhost:PORT`
+
+### For development with continuous file serve
+1. Execute ```npm install``` in terminal to download all required dependencies
+2. Run ```npm run start``` to trigger the build and serve the files continuously.
+3. Await for your browser to open on [http://localhost:3000](http://localhost:3000)
 
 ## Available Scripts
 
@@ -58,17 +74,20 @@ Provided your are using Chrome, install [Redux DevTools](https://chrome.google.c
 This allows you to debug state changes in real time for an app being served locally.
 
 ## Dependencies
-- React (Core Framework)
-- React-Redux (for state management going beyond React Hooks)
-- Redux-Thunk (for asynchronous actions relying on state)
-- React-Scripts (having the following dependencies among others)
-  - Babel
-  - Webpack
-  - Jest
-  - ESLint
-- Material-UI (UI Framework)
-- React-Toast-Notifications (Library introducing useToasts hook to show notifications as toasts in UI)
-- Cross-Fetch (for making HTTP-Requests to the REST-API)
-- ESLint (for static code analysis and common code style among development team)
-- Jest (Testing Framework for React apps)
-- Redux Mock Store (to facilitate unit testing with Redux)
+
+### Core
+- React - Core Framework
+- React-Redux - for state management going beyond React Hooks
+- Redux-Thunk - for asynchronous actions relying on state
+- React-Scripts - using Webpack, Babel, Jest, ESLint and alike under the hood - see [https://www.npmjs.com/package/react-scripts](https://www.npmjs.com/package/react-scripts)
+- Cross-Fetch - for making HTTP-Requests to the REST-API
+- Material-UI - UI Framework
+- React-Toast-Notifications - Library introducing useToasts hook to show notifications as toasts in UI
+
+### Utilities
+- Serve - to statically serve your build folder
+
+### Testing
+- ESLint - for static code analysis and common code style among development team
+- Jest - Testing Framework for React apps
+- Redux Mock Store - to facilitate unit testing with Redux
