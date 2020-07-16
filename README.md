@@ -10,7 +10,7 @@ which nationalities you're interested in.
 ### Pre-Requisites
 Install Node.js and npm according to the official documentation [https://docs.npmjs.com/downloading-and-installing-node-js-and-npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
-### Run a production build locally
+### Run a production optimized build locally
 
 1. Execute ```npm install``` in terminal to download all required dependencies
 2. Execute ```npm run build-serve``` in terminal to create a production optimized build and statically serve it on port 4000
