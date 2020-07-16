@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import {makeStyles} from '@material-ui/core/styles';
 import {useDispatch, useSelector} from 'react-redux';
@@ -37,39 +37,60 @@ function AddressBook({isScrolledToBottom, onRender}) {
     const classes = useStyles();
     const dispatch = useDispatch();
     const search = useSelector(state => state.navBar.search);
+    const nationalities = useSelector(state => state.settings?.nationalities);
     const loadedUsers = useSelector(state => state.addressBook.loadedUsers);
     const visibleUsers = useSelector(state => state.addressBook.visibleUsers);
     const allUsersLoaded = useSelector(state => state.addressBook.allUsersLoaded);
     const isFetching = useSelector(state => state.addressBook.isFetching);
     const error = useSelector(state => state.addressBook.error);
-    const [showAllUsersLoadedMessage, setShowAllUsersLoadedMessage] = useState(false);
     const {addToast} = useToasts();
 
+    /*
+     * inform the parent about rendering the component, as isScrolledToBottom only gets updated when user scrolls,
+     * not when scroll position is changed due to rendering
+     */
     useEffect(() => {
         onRender();
     });
 
+    /*
+     * only load initial set of users on the very first render of the address book
+     */
     useEffect(() => {
         if (!loadedUsers || loadedUsers.length === 0) {
             dispatch(loadInitialUsers());
         }
     }, [dispatch, loadedUsers]);
 
+    /*
+     * re-apply user filter when search or nationalities were changed
+     */
     useEffect(() => {
         dispatch(applyUserFilter());
-    }, [search, dispatch]);
+    }, [search, nationalities, dispatch]);
 
+    /*
+     * render next users from state, when user scrolled to bottom
+     * has a dependency on isFetching as cached users are expected to have changed when fetch finished
+     */
     useEffect(() => {
-        if (!isFetching && isScrolledToBottom) {
+        if (isScrolledToBottom) {
             dispatch(applyUserFilter());
-            if (allUsersLoaded) {
-                setShowAllUsersLoadedMessage(true);
-            } else {
-                dispatch(loadNextUsers());
-            }
         }
-    }, [allUsersLoaded, isFetching, isScrolledToBottom, setShowAllUsersLoadedMessage, dispatch]);
+    }, [isScrolledToBottom, isFetching, dispatch]);
 
+    /*
+     * pre-mature load next users when user scrolled to bottom
+     */
+    useEffect(() => {
+        if (isScrolledToBottom) {
+            dispatch(loadNextUsers());
+        }
+    }, [isScrolledToBottom, dispatch]);
+
+    /*
+     * show errors in notification toasts if present
+     */
     useEffect(() => {
         if (error) {
             addToast(error, {appearance: 'error'});
@@ -94,7 +115,7 @@ function AddressBook({isScrolledToBottom, onRender}) {
                 </div>
             }
             {
-                !showAllUsersLoadedMessage && search &&
+                !allUsersLoaded && search &&
                 <div className={classes.centeredContent}>
                     <WarningIcon color="primary" className={classes.icon}/>
                     <Typography component="span" data-testid="user-load-on-hold">user catalog loading on hold while
@@ -102,7 +123,7 @@ function AddressBook({isScrolledToBottom, onRender}) {
                 </div>
             }
             {
-                showAllUsersLoadedMessage &&
+                allUsersLoaded &&
                 <div className={classes.centeredContent}>
                     <Typography component="span" data-testid="end-of-users-catalog">end of users catalog</Typography>
                 </div>
