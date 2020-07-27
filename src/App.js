@@ -65,7 +65,7 @@ function App() {
      * @returns {boolean} - true if and only if scrollable content is scrolled to the bottom
      */
     const evaluateIfScrolledToBottom = (element) => {
-        return element.scrollHeight - Math.ceil(element.scrollTop) === element.clientHeight;
+        return element.scrollHeight - Math.ceil(element.scrollTop) <= element.clientHeight + 1;
     };
 
     /**
