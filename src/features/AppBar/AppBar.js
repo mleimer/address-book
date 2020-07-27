@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MaterialAppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -12,6 +12,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {fade} from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux';
 import {setSearch} from '../../store/appBar/appBarActions';
+import {useDebounce} from '../../common/useDebounce';
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -75,14 +76,31 @@ function AppBar() {
     const dispatch = useDispatch();
     const location = useLocation();
     const [selectedTabIndex, setSelectedTabIndex] = useState(getInitialSelectedTabIndexFromRoute(location));
-    const searchFieldValue = useSelector(state => state.appBar.search);
+    const [searchValue, setSearchValue] = useState('');
+    const reduxSearchValue = useSelector(state => state.appBar.search);
+
+    const debouncedSearchTerm = useDebounce(searchValue, 200);
+
+    /*
+     * reset search field value with latest store value, as it could have been reset
+     */
+    useEffect(() => {
+        setSearchValue(reduxSearchValue);
+    }, [reduxSearchValue]);
+
+    /*
+     * only dispatch action after search value change has debounced
+     */
+    useEffect(() => {
+        dispatch(setSearch(debouncedSearchTerm));
+    }, [debouncedSearchTerm, dispatch]);
 
     const handleTabChange = (event, newValue) => {
         setSelectedTabIndex(newValue);
     };
 
     const handleSearchValueChange = (event) => {
-        dispatch(setSearch(event.target.value));
+        setSearchValue(event.target.value);
     };
 
     return (
@@ -109,7 +127,7 @@ function AppBar() {
                                 }}
                                 inputProps={{'aria-label': 'search', 'data-testid': 'search-field'}}
                                 onChange={handleSearchValueChange}
-                                value={searchFieldValue}
+                                value={searchValue}
                             />
                         </div>
                     }
